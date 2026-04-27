@@ -1,17 +1,10 @@
-:root {
-  --primary-bg: #0a0b10;
-  --accent-purple: #8a2be2; 
-  --text-main: #ffffff;
-  --input-bg: #1e1e26;
-}
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import index from './index.css'
 
-.main-container {
-  background-color: var(--primary-bg);
-  color: var(--text-main);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
-}
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
