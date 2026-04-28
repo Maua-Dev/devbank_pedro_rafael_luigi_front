@@ -1,16 +1,13 @@
 import { useState } from 'react'
 import { Login } from './pages/Login'
+import { Dashboard } from './pages/Dashboard'
 
 export default function App() {
-  const [logado, setLogado] = useState(false)
+  const [user, setUser] = useState<any>(null)
 
-  if (logado) {
-    return (
-      <main className="min-h-screen bg-[#0A0A0B] text-white flex items-center justify-center">
-        <h1 className="text-4xl font-black">DASHBOARD</h1>
-      </main>
-    )
+  if (user) {
+    return <Dashboard userData={user} />
   }
 
-  return <Login onLogin={() => setLogado(true)} />
+  return <Login onLogin={(data) => setUser(data)} />
 }

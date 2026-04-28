@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 interface LoginProps {
-  onLogin: () => void
+  onLogin: (userData: any) => void
 }
 
 export function Login({ onLogin }: LoginProps) {
@@ -9,15 +10,26 @@ export function Login({ onLogin }: LoginProps) {
   const [agencia, setAgencia] = useState('')
   const [conta, setConta] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (agencia && conta) onLogin()
+    
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/login', {
+        tipo: tipo,
+        agencia: agencia,
+        conta: conta
+      })
+      
+      onLogin(response.data)
+    } catch (error) {
+      alert("Dados incorretos. Verifique o tipo, agência e conta.")
+    }
   }
 
   return (
     <main className="min-h-screen bg-[#0A0A0B] flex flex-col items-center justify-center p-6 text-white">
-      <h1 className="text-6xl font-black mb-10 tracking-tighter">
-        DEV <span className="text-purple-600">BANK</span>
+      <h1 className="text-6xl font-black mb-10 tracking-tighter italic">
+        DEV<span className="text-[#8B5CF6]">BANK</span>
       </h1>
 
       <div className="w-full max-w-sm bg-[#18181B] p-8 rounded-[32px] border border-white/5 shadow-2xl">
@@ -30,7 +42,7 @@ export function Login({ onLogin }: LoginProps) {
               placeholder="Ex: Corrente"
               value={tipo}
               onChange={(e) => setTipo(e.target.value)}
-              className="bg-zinc-900 border border-white/5 p-4 rounded-2xl outline-none focus:border-purple-600 transition-all" 
+              className="bg-zinc-900 border border-white/5 p-4 rounded-2xl outline-none focus:border-[#8B5CF6] transition-all"
             />
           </div>
 
@@ -38,10 +50,10 @@ export function Login({ onLogin }: LoginProps) {
             <label className="text-zinc-500 text-xs font-bold uppercase ml-1">Agência</label>
             <input 
               type="text" 
-              placeholder="0000" 
+              placeholder="0000"
               value={agencia}
               onChange={(e) => setAgencia(e.target.value)}
-              className="bg-zinc-900 border border-white/5 p-4 rounded-2xl outline-none focus:border-purple-600 transition-all" 
+              className="bg-zinc-900 border border-white/5 p-4 rounded-2xl outline-none focus:border-[#8B5CF6] transition-all"
             />
           </div>
 
@@ -49,15 +61,18 @@ export function Login({ onLogin }: LoginProps) {
             <label className="text-zinc-500 text-xs font-bold uppercase ml-1">Conta</label>
             <input 
               type="text" 
-              placeholder="00000-0" 
+              placeholder="00000-0"
               value={conta}
               onChange={(e) => setConta(e.target.value)}
-              className="bg-zinc-900 border border-white/5 p-4 rounded-2xl outline-none focus:border-purple-600 transition-all" 
+              className="bg-zinc-900 border border-white/5 p-4 rounded-2xl outline-none focus:border-[#8B5CF6] transition-all"
             />
           </div>
-          
-          <button type="submit" className="w-full mt-4 bg-purple-600 hover:bg-purple-700 font-bold py-4 rounded-2xl transition-all shadow-lg shadow-purple-600/20">
-            ENTRAR
+
+          <button 
+            type="submit"
+            className="mt-4 bg-[#8B5CF6] hover:bg-[#7C3AED] py-4 rounded-2xl font-black uppercase tracking-widest transition-all shadow-lg shadow-[#8B5CF6]/20"
+          >
+            Entrar na conta
           </button>
         </form>
       </div>
