@@ -3,11 +3,19 @@ import { Login } from './pages/Login'
 import { Dashboard } from './pages/Dashboard'
 
 export default function App() {
-  const [user, setUser] = useState<any>(null)
+  const [usuario, setUsuario] = useState<any>(() => {
+    const salvo = localStorage.getItem('@DevBank:usuario')
+    return salvo ? JSON.parse(salvo) : null
+  })
 
-  if (user) {
-    return <Dashboard userData={user} />
+  const entrar = (dados: any) => {
+    localStorage.setItem('@DevBank:usuario', JSON.stringify(dados))
+    setUsuario(dados)
   }
 
-  return <Login onLogin={(data) => setUser(data)} />
+  if (usuario) {
+    return <Dashboard userData={usuario} />
+  }
+
+  return <Login onLogin={entrar} />
 }
