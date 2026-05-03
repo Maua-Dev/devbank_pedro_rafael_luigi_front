@@ -11,7 +11,7 @@ const users = [
     tipo: "Corrente",
     agencia: "0000",
     conta: "00000-0",
-    saldo: 1250.00,
+    saldo: 1000.00,
     transacoes: []
   }
 ];

@@ -17,7 +17,7 @@ export function OperacaoDinheiro({ tipo, saldoAtual, aoConfirmar, aoCancelar }: 
   // Calcula o valor total somando (valor da nota * quantidade)
   const valorTotal = Object.entries(notas).reduce((acc, [nota, qtd]) => acc + Number(nota) * qtd, 0)
   
-  // Calcula o saldo final previsto
+  // Calcula o saldo final
   const saldoFinal = tipo === 'depositar' ? saldoAtual + valorTotal : saldoAtual - valorTotal
 
   // Função para aumentar ou diminuir a quantidade de notas
@@ -30,7 +30,6 @@ export function OperacaoDinheiro({ tipo, saldoAtual, aoConfirmar, aoCancelar }: 
 
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-500">
-      {/* Cabeçalho de Resumo */}
       <section className="bg-[#18181B] border border-white/5 p-6 rounded-[24px] flex justify-between items-center shadow-2xl">
         <div className="bg-[#0A0A0B] border border-white/10 px-6 py-3 rounded-xl text-center">
           <p className="text-[#8B5CF6] text-[10px] font-black uppercase tracking-widest">Total da Operação</p>
@@ -44,7 +43,6 @@ export function OperacaoDinheiro({ tipo, saldoAtual, aoConfirmar, aoCancelar }: 
         </div>
       </section>
 
-      {/* Grid de Cédulas */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {cedulasDisponiveis.map(valorNota => (
           <div key={valorNota} className="bg-[#18181B] border border-white/5 p-4 rounded-3xl flex flex-col gap-4 shadow-xl">
@@ -75,7 +73,6 @@ export function OperacaoDinheiro({ tipo, saldoAtual, aoConfirmar, aoCancelar }: 
         ))}
       </div>
 
-      {/* Botões de Ação */}
       <div className="flex justify-center gap-6 mt-4">
         <button 
           onClick={aoCancelar} 
